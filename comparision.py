@@ -36,18 +36,29 @@ def function6(x):
 def function7(x):
     return np.sum(np.array([x[i]**4-16*x[i]**2+5*x[i] for i in range(len(x))]))/2
 
-bas = BAS(50, np.sqrt(5), function7)
-bas_improve = BAS_value(50, np.sqrt(5), function7)
-bas_gra = BAS_gra(50, np.sqrt(5),function7)
+x = [i for i in range(101)]
+
+#Modify diamension step and function here
+bas = BAS(100, np.sqrt(5), function4)
+bas_improve = BAS_value(100, np.sqrt(5), function4)
+bas_gra = BAS_gra(100, np.sqrt(5),function4)
+
+
 
 y_bas = bas.fit(100)[0]
 y_bas_improve = bas_improve.fit(100)[0]
 y_bas_gra = bas_gra.fit(100)[0]
 
+plt.figure(figsize = (10,5))
+
 plt.subplot(1,2,1)
-plt.plot(y_bas,'r-')
-plt.plot(y_bas_improve,'g-')
-plt.plot(y_bas_gra, 'b-')
+plt.title("Convergence rate above three algorithms")
+plt.plot(x, y_bas,'r-', label = 'BAS')
+plt.plot(x, y_bas_improve,'g-', label = 'BAS_value')
+plt.plot(x, y_bas_gra, 'b-', label = 'BAS_gra')
+plt.legend(loc = 'best')
+plt.xlabel('Iterations')
+plt.ylabel('f')
 print("y_values: ",y_bas[-1], y_bas_gra[-1], y_bas_improve[-1])
 
 
@@ -64,10 +75,13 @@ for i in range(100):
     bas_gra.x_init()
 
 plt.subplot(1,2,2)
-plt.plot(y_bas,'r-')
-plt.plot(y_bas_improve,'g-')
-plt.plot(y_bas_gra,'b-')
-
+plt.title("Results executed 100 times algorithm")
+plt.plot(x[:100], y_bas,'r-', label = 'BAS')
+plt.plot(x[:100], y_bas_improve,'g-', label = "BAS_value")
+plt.plot(x[:100], y_bas_gra,'b-', label = "BAS_gra")
+plt.xlabel('Times')
+plt.ylabel('Best results')
+plt.legend(loc = "best")
 print("y_means:   ",y_bas.mean(), y_bas_gra.mean(), y_bas_improve.mean())
 print("y_std:     ",y_bas.std(), y_bas_gra.std(), y_bas_improve.std())
 

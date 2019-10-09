@@ -118,7 +118,7 @@ class BAS_value:
                     f_sum = np.append(f_sum, self.f)
                     
                 self.direction_update()
-            self.step*=self.eta
+                self.step*=self.eta
 #        plt.plot(f_sum)
 #        print(self.x)
 #        print(self.f)
@@ -194,7 +194,7 @@ class BAS_gra:
         avg_r = (self.f - self.func(self.x+self.step*self.dlr))/self.step
         f_xl = gra_l+avg_l
         f_xr = gra_r+avg_r
-        return avg_l, avg_r
+        return gra_l, gra_r
         #return f_xl, f_xr
         
     def x_init(self):
